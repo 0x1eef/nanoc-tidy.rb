@@ -1,6 +1,8 @@
 ## About
 
-nanoc-tidy.rb is a nanoc filter that utilizes
+nanoc-tidy.rb is a
+[nanoc](https://nanoc.app)
+filter that utilizes
 [tidy-html5](https://github.com/htacg/tidy-html5)
 to nicely format, and detect / correct markup
 errors in HTML produced by template languages such as ERB -
@@ -13,7 +15,7 @@ __ERB__
 
 The following is an example with the
 [default options](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_options-class_method)
-in effect:
+being used:
 
 ``` ruby
 # Rules
