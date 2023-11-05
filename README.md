@@ -29,7 +29,7 @@ end
 
 The following example forwards command-line options to
 [tidy-html5](https://github.com/htacg/tidy-html5)
-by providing a second argument to filter:
+by providing a second argument to the filter method:
 
 ```ruby
 # Rules
