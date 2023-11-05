@@ -56,7 +56,7 @@ are available as sources.
 **Gemfile**
 
 ```ruby
-gem "nanoc-tidy.rb", github: "0x1eef/nanoc-tidy.rb", tag: "v0.1.0"
+gem "nanoc-tidy.rb", github: "0x1eef/nanoc-tidy.rb", tag: "v0.1.1"
 ```
 
 ## License
