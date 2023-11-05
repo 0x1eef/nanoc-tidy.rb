@@ -1,1 +1,5 @@
 -.gems/
++.github/
++lib/
++test/
++.bundle/
