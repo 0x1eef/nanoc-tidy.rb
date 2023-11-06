@@ -11,7 +11,7 @@ are often commonplace.
 
 ## Examples
 
-__ERB__
+__Defaults__
 
 The following is an example with the
 [default options](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_options-class_method)
