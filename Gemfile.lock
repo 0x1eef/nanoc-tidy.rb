@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    nanoc-tidy.rb (0.1.0)
+    nanoc-tidy.rb (0.1.2)
 
 GEM
   remote: https://rubygems.org/
