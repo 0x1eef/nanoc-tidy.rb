@@ -2,9 +2,16 @@ require_relative "setup"
 
 class FilterTest < Test::Unit::TestCase
   def test_default_options
-    html = File.binread "./test/fixtures/1.html"
-    assert_equal filter_for("1.html").run(html, "--tidy-mark" => false),
-                 result_for("1.html")
+    options = { "--tidy-mark" => false }
+    assert_equal filter_for("fixture.html").run(html, options),
+                 read_result("default_options.html")
+  end
+
+  def test_upper_option
+    options = { "-upper" => true, "--tidy-mark" => false }
+    assert_equal filter_for("fixture.html").run(html, options),
+                 read_result("upper_option.html")
+
   end
 
   private
@@ -24,7 +31,11 @@ class FilterTest < Test::Unit::TestCase
     end
   end
 
-  def result_for(basename)
+  def read_result(basename)
     File.binread File.join("test", "results", basename)
+  end
+
+  def html
+    File.binread "./test/fixtures/fixture.html"
   end
 end
