@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.homepage = "https://github.com/0x1eef/nanoc-tidy.rb#readme"
   gem.version = Nanoc::Tidy::VERSION
   gem.licenses = ["0BSD"]
-  gem.files = `git ls-files`.split($/)
+  gem.files = `git ls-files`.split($/).reject { _1.start_with?(".") }
   gem.require_paths = ["lib"]
   gem.summary = "nanoc-tidy.rb integrates tidy-html5 into nanoc."
   gem.description = gem.summary
