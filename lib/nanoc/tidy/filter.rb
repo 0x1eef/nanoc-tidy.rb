@@ -24,7 +24,7 @@ class Nanoc::Tidy::Filter < Nanoc::Filter
   private
 
   def tidy(file, options)
-    system "tidy", "-modify", "-quiet", *tidy_args(options), file.path
+    system tidy_exe, "-modify", "-quiet", *tidy_args(options), file.path
     if $?.success?
       File.read(file.path).tap { file.tap(&:unlink).close }
     else
@@ -39,6 +39,14 @@ class Nanoc::Tidy::Filter < Nanoc::Filter
       else
         ary.concat [key, value.to_s]
       end
+    end
+  end
+
+  def tidy_exe
+    case
+    when system("which tidy > /dev/null 2>&1") then "tidy"
+    when system("which tidy5 > /dev/null 2>&1") then "tidy5"
+    else raise Error, "unable to find a tidy executable on $PATH"
     end
   end
 
