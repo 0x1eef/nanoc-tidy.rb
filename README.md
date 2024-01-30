@@ -21,6 +21,7 @@ being used:
 # Rules
 require "nanoc-tidy"
 compile "/index.html.erb" do
+  layout("/default.*")
   filter(:erb)
   filter(:tidy)
   write("/index.html")
@@ -36,6 +37,7 @@ The following example forwards command-line options to
 # Rules
 require "nanoc-tidy"
 compile "/index.html.erb" do
+  layout("/default.*")
   filter(:erb)
   filter(:tidy, "-upper" => true)
   write("/index.html")
