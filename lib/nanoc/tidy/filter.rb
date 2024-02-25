@@ -9,6 +9,11 @@ class Nanoc::Tidy::Filter < Nanoc::Filter
   type text: :text
 
   ##
+  # @example
+  #   Nanoc::Tidy.default_options.merge!(
+  #     "-upper" => true
+  #   )
+  #
   # @return [{"-wrap" => 120, "-indent" => true}]
   #  Returns the default options forwarded as command-line
   #  arguments to tidy-html5.
