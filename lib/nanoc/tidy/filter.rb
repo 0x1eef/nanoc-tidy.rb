@@ -22,18 +22,45 @@ class Nanoc::Tidy::Filter < Nanoc::Filter
   end
 
   def run(content, options = {})
-    file = temporary_file_for(content)
-    tidy file, self.class.default_options.merge(options)
+    tidy temporary_file(content),
+         self.class.default_options.merge(options)
   end
 
   private
 
+  def temporary_file(content)
+    dir = cwd
+    mkdir_p(dir) unless Dir.exist?(dir)
+    file = Tempfile.new(File.basename(item.identifier.to_s), dir)
+    file.write(content)
+    file.tap(&:flush)
+  end
+
+  ##
+  # tidy executable interface
+
   def tidy(file, options)
-    system tidy_exe, "-modify", "-quiet", *tidy_args(options), file.path
+    Process.wait spawn(
+      tidy_exe, "-modify", "-quiet", *tidy_args(options), file.path,
+      spawn_options
+    )
     if $?.success?
       File.read(file.path).tap { file.tap(&:unlink).close }
     else
-      raise Error, "tidy exited unsuccessfully (exit code: #{$?.exitstatus})", []
+      raise Error,
+            "tidy exited unsuccessfully " \
+            "(exit code: #{$?.exitstatus}, " \
+            "item: #{item.identifier}, " \
+            "log: #{log.gsub(Dir.getwd, '')[1..]})",
+            []
+    end
+  end
+
+  def tidy_exe
+    case
+    when system("which tidy > /dev/null 2>&1") then "tidy"
+    when system("which tidy5 > /dev/null 2>&1") then "tidy5"
+    else raise Error, "unable to find a tidy executable on $PATH"
     end
   end
 
@@ -47,19 +74,18 @@ class Nanoc::Tidy::Filter < Nanoc::Filter
     end
   end
 
-  def tidy_exe
-    case
-    when system("which tidy > /dev/null 2>&1") then "tidy"
-    when system("which tidy5 > /dev/null 2>&1") then "tidy5"
-    else raise Error, "unable to find a tidy executable on $PATH"
-    end
+  ##
+  # spawn-related methods
+
+  def spawn_options
+    { STDOUT => log, STDERR => log }
   end
 
-  def temporary_file_for(content)
-    dir = File.join(Dir.getwd, "tmp", "nanoc-tidy.rb")
-    mkdir_p(dir) unless Dir.exist?(dir)
-    file = Tempfile.new(File.basename(item.identifier.to_s), dir)
-    file.write(content)
-    file.tap(&:flush)
+  def log
+    File.join(cwd, "tidy.log")
+  end
+
+  def cwd
+    File.join(Dir.getwd, "tmp", "nanoc-tidy.rb")
   end
 end
