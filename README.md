@@ -2,18 +2,19 @@
 
 nanoc-tidy.rb is a
 [nanoc](https://nanoc.app)
-filter that utilizes
+filter that integrates
 [tidy-html5](https://github.com/htacg/tidy-html5)
-to nicely format, and detect / correct markup
-errors in HTML produced by template languages such as ERB -
-where misaligned indentation and other whitespace issues
-are often commonplace.
+into nanoc. <br>
+The filter can format and validate HTML produced
+during the
+[nanoc](https://nanoc.app)
+build process.
 
 ## Examples
 
 __Defaults__
 
-The following is an example that uses the
+The following example uses the
 [default options](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_options-class_method):
 
 ``` ruby
@@ -43,18 +44,18 @@ compile "/index.html.erb" do
 end
 ```
 
-## Sources
-
-* [Source code (GitHub)](https://github.com/0x1eef/nanoc-tidy.rb)
-* [Source code (GitLab)](https://gitlab.com/0x1eef/nanoc-tidy.rb)
-
 ## <a id='install'>Install</a>
 
-nanoc-tidy.rb is distributed as a RubyGem through its git repositories. <br>
-[GitHub](https://github.com/0x1eef/nanoc-tidy.rb),
-and
-[GitLab](https://gitlab.com/0x1eef/nanoc-tidy.rb)
-are available as sources.
+**Rubygems.org**
+
+nanoc-tidy.rb can be installed via rubygems.org.
+
+    gem install nanoc-tidy.rb
+
+## Sources
+
+* [GitHub](https://github.com/0x1eef/nanoc-tidy.rb#readme)
+* [GitLab](https://gitlab.com/0x1eef/nanoc-tidy.rb#about)
 
 ## License
 
