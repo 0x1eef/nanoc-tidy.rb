@@ -17,7 +17,7 @@ module Nanoc::Tidy
     # @return [Array<String>]
     #  The default command line options forwarded to tidy-html5.
     def self.default_argv
-      ["-wrap", "120", "-indent"]
+      @default_argv ||= ["-wrap", "120", "-indent"]
     end
 
     def run(content, options = {})
