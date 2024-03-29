@@ -6,9 +6,9 @@ module Nanoc::Tidy
   require_relative "tidy/filter"
 
   ##
-  # @example (see Nanoc::Tidy::Filter.default_options)
-  # @return (see Nanoc::Tidy::Filter.default_options)
-  def self.default_options
-    Filter.default_options
+  # @example (see Nanoc::Tidy::Filter.default_argv)
+  # @return (see Nanoc::Tidy::Filter.default_argv)
+  def self.default_argv
+    Filter.default_argv
   end
 end

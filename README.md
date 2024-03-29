@@ -15,7 +15,7 @@ build process.
 __Defaults__
 
 The following example uses the
-[default options](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_options-class_method):
+[default command-line options](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method):
 
 ``` ruby
 # Rules
@@ -30,7 +30,7 @@ end
 
 __Options__
 
-The following example forwards custom command-line options to
+The following example forwards command-line options to
 [tidy-html5](https://github.com/htacg/tidy-html5):
 
 ```ruby
@@ -39,7 +39,7 @@ require "nanoc-tidy"
 compile "/index.html.erb" do
   layout("/default.*")
   filter(:erb)
-  filter(:tidy, "-upper" => true)
+  filter(:tidy, argv: ["-upper"])
   write("/index.html")
 end
 ```
