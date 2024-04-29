@@ -26,7 +26,8 @@ module Nanoc::Tidy
       path = temporary_file(content).path
       spawn tidy,
             [*default_argv, *(options[:argv] || []), "-modify", path],
-            log: File.join(tmpdir, "tidy-html5.log")
+            err: File.join(tmpdir, "stderr"),
+            out: File.join(tmpdir, "stdout")
       File.read(path).tap { rm(path) }
     end
 
