@@ -28,7 +28,9 @@ module Nanoc::Tidy
             [*default_argv, *(options[:argv] || []), "-modify", path],
             err: File.join(tmpdir, "stderr"),
             out: File.join(tmpdir, "stdout")
-      File.read(path).tap { rm(path) }
+      File.read(path)
+    ensure
+      rm(path) if File.exist?(path)
     end
 
     private
