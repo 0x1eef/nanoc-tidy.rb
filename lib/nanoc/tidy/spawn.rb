@@ -6,14 +6,21 @@ module Nanoc::Tidy
         exe, *argv, { STDOUT => log, STDERR => log }
       )
       Process.wait
-      unless $?.success?
-        raise Error,
-              "#{File.basename(exe)} exited unsuccessfully " \
-              "(exit code: #{$?.exitstatus}, " \
-              "item: #{item.identifier}, " \
-              "log: #{log.gsub(Dir.getwd, '')[1..]})",
-              []
-      end
+      status = $?
+      ##
+      # exit codes
+      #  * 0: no warnings, no errors
+      #  * 1: has warnings
+      #  * 2: has errors
+      return if [0, 1].include?(status.exitstatus)
+
+      raise Error,
+            "#{File.basename(exe)} exited unsuccessfully " \
+            "(exit code: #{$?.exitstatus}, " \
+            "item: #{item.identifier}, " \
+            "#{log.gsub(Dir.getwd, '')[1..]}:" \
+            "#{File.binread(log)}",
+            []
     end
   end
 end
