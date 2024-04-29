@@ -21,9 +21,9 @@ module Nanoc::Tidy
     #
     # @return [void]
     def spawn(exe, argv, err:, out:)
-      hex = SecureRandom.hex
-      err = "#{err}-ID#{hex}"
-      out = "#{out}-ID#{hex}"
+      id = SecureRandom.hex
+      err = "#{err}+#{id}"
+      out = "#{out}+#{id}"
       Kernel.spawn(
         exe, *argv, { STDERR => err, STDOUT => out }
       )
@@ -38,7 +38,7 @@ module Nanoc::Tidy
 
       msgs = [err, out].map do
         FileUtils.touch(_1)
-        [_1.gsub(Dir.getwd, ''), ":", File.binread(_1)].join
+        [_1.gsub(Dir.getwd, ''), ":", "\n", File.binread(_1)].join
       end.join("\n")
       raise Error,
             "#{File.basename(exe)} exited unsuccessfully " \
