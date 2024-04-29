@@ -15,7 +15,7 @@ build process.
 __Defaults__
 
 The following example uses the
-[default command-line options](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method):
+[default command line arguments](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method):
 
 ``` ruby
 # Rules
@@ -30,8 +30,8 @@ end
 
 __Options__
 
-The following example forwards command-line options to
-[tidy-html5](https://github.com/htacg/tidy-html5):
+The following example forwards a command line argument
+to [tidy-html5](https://github.com/htacg/tidy-html5):
 
 ```ruby
 # Rules
@@ -48,7 +48,7 @@ end
 
 **Rubygems.org**
 
-nanoc-tidy.rb can be installed via rubygems.org.
+nanoc-tidy.rb can be installed via rubygems.org:
 
     gem install nanoc-tidy.rb
 

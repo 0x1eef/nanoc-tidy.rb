@@ -15,7 +15,7 @@ module Nanoc::Tidy
     #   Nanoc::Tidy.default_argv.concat ["-upper"]
     #
     # @return [Array<String>]
-    #  The default command line options forwarded to tidy-html5.
+    #  The default argv for tidy-html5
     def self.default_argv
       @default_argv ||= ["-wrap", "120", "-indent"]
     end
@@ -50,7 +50,7 @@ module Nanoc::Tidy
     end
 
     def tmpdir
-      File.join(Dir.getwd, "tmp", "nanoc-tidy.rb")
+      File.join(Dir.getwd, "tmp", "tidy-html5")
     end
   end
 end
