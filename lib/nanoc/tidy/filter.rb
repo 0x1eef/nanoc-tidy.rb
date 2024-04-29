@@ -15,7 +15,7 @@ module Nanoc::Tidy
     #   Nanoc::Tidy.default_argv.concat ["-upper"]
     #
     # @return [Array<String>]
-    #  The default argv for tidy-html5
+    #  Default argv for tidy-html5.
     def self.default_argv
       @default_argv ||= ["-wrap", "120", "-indent"]
     end
