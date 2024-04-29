@@ -16,10 +16,13 @@ module Nanoc::Tidy
 
       raise Error,
             "#{File.basename(exe)} exited unsuccessfully " \
-            "(exit code: #{$?.exitstatus}, " \
-            "item: #{item.identifier}, " \
+            "(" \
+            "exit code: #{status.exitstatus}, " \
+            "item: #{item.identifier}" \
+            ")" \
+            "\n" \
             "#{log.gsub(Dir.getwd, '')[1..]}:" \
-            "#{File.binread(log)}",
+            "#{File.binread(log)}" \
             []
     end
   end
