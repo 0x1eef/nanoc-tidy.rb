@@ -19,4 +19,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "nanoc", "~> 4.12"
   gem.add_development_dependency "rack", "~> 3.0"
   gem.add_development_dependency "rackup", "~> 2.1"
+  gem.add_development_dependency "ostruct", "~> 0.6"
 end
