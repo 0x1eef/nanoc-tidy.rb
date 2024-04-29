@@ -30,8 +30,7 @@ end
 
 __Options__
 
-The following example forwards a command line argument
-to [tidy-html5](https://github.com/htacg/tidy-html5):
+The following example forwards a command line argument:
 
 ```ruby
 # Rules
