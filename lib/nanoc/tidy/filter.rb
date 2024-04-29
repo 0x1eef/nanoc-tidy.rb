@@ -22,6 +22,17 @@ module Nanoc::Tidy
       @default_argv ||= ["-wrap", "120", "-indent"]
     end
 
+    ##
+    # Runs the filter
+    #
+    # @param [String] content
+    #  HTML content
+    #
+    # @param [Hash] options
+    #  Filter options
+    #
+    # @return [String]
+    #  Returns HTML content (modified)
     def run(content, options = {})
       path = temporary_file(content).path
       spawn tidy,
