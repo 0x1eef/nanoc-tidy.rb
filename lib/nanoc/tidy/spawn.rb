@@ -39,8 +39,6 @@ module Nanoc::Tidy
       msgs = [err, out].map do
         FileUtils.touch(_1)
         [_1.gsub(Dir.getwd, ''), ":", File.binread(_1)].join
-      ensure
-        FileUtils.rm(_1)
       end.join("\n")
       raise Error,
             "#{File.basename(exe)} exited unsuccessfully " \
@@ -50,6 +48,10 @@ module Nanoc::Tidy
             ")" \
             "\n#{msgs}",
             []
+    ensure
+      [err, out]
+        .select { File.exist?(_1) }
+        .each { FileUtils.rm(_1) }
     end
   end
 end
