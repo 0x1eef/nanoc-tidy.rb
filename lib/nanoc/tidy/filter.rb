@@ -34,7 +34,10 @@ module Nanoc::Tidy
     # @return [String]
     #  Returns HTML content (modified)
     def run(content, options = {})
-      file = temporary_file(File.basename(item.identifier.to_s), content)
+      file = temporary_file(
+        File.basename(item.identifier.to_s),
+        content
+      )
       spawn tidy,
             [*default_argv, *(options[:argv] || []), "-modify", file.path]
       File.read(file.path)
