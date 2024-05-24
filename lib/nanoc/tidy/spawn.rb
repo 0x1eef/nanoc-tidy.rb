@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Nanoc::Tidy
   module Spawn
     require "securerandom"
@@ -16,7 +18,7 @@ module Nanoc::Tidy
     # @return [void]
     def spawn(exe, argv, workdir: File.join(Dir.getwd, "tmp"))
       logfile = File.join(workdir, ".#{Process.pid}.tidy")
-      Kernel.spawn(exe, *argv, { STDERR => logfile, STDOUT => logfile })
+      Kernel.spawn(exe, *argv, {$stderr => logfile, $stdout => logfile})
       Process.wait
       status = $?
       ##
@@ -31,7 +33,7 @@ module Nanoc::Tidy
               "#{File.basename(exe)} exited unsuccessfully\n" \
               "(item: #{item.identifier})\n" \
               "(exit code: #{status.exitstatus})\n" \
-              "output:\n#{File.binread(logfile)}\n"
+              "output:\n#{File.binread(logfile)}\n",
               []
       end
     ensure

@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require_relative "setup"
 
 class FilterTest < Test::Unit::TestCase
   def test_default_options
-    options = { argv: ["--tidy-mark", "false"] }
+    options = {argv: ["--tidy-mark", "false"]}
     assert_equal read_result("default_options.html"),
                  filter_for("fixture.html").run(html, options)
   end
 
   def test_upper_option
-    options = { argv: ["-upper", "--tidy-mark", "false"] }
+    options = {argv: ["-upper", "--tidy-mark", "false"]}
     assert_equal read_result("upper_option.html"),
                  filter_for("fixture.html").run(html, options)
   end

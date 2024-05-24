@@ -60,10 +60,10 @@ module Nanoc::Tidy
     end
 
     def tidy
-      case
-      when system("which tidy > /dev/null 2>&1") then "tidy"
-      when system("which tidy5 > /dev/null 2>&1") then "tidy5"
-      else nil
+      if system("which tidy > /dev/null 2>&1")
+        "tidy"
+      elsif system("which tidy5 > /dev/null 2>&1")
+        "tidy5"
       end
     end
   end
