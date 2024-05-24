@@ -2,9 +2,7 @@
 
 module Nanoc::Tidy
   module Spawn
-    require "securerandom"
     require "fileutils"
-    Error = Class.new(RuntimeError)
 
     ##
     # Spawns a process
@@ -18,7 +16,7 @@ module Nanoc::Tidy
     # @return [void]
     def spawn(exe, argv, workdir: File.join(Dir.getwd, "tmp"))
       logfile = File.join(workdir, ".#{Process.pid}.tidy")
-      Kernel.spawn(exe, *argv, {$stderr => logfile, $stdout => logfile})
+      Kernel.spawn(exe, *argv, {STDERR => logfile, STDOUT => logfile})
       Process.wait
       status = $?
       ##
@@ -29,7 +27,7 @@ module Nanoc::Tidy
       if [0, 1].include?(status.exitstatus)
         status.exitstatus
       else
-        raise Error,
+        raise Nanoc::Tidy::Error,
               "#{File.basename(exe)} exited unsuccessfully\n" \
               "(item: #{item.identifier})\n" \
               "(exit code: #{status.exitstatus})\n" \
@@ -37,7 +35,7 @@ module Nanoc::Tidy
               []
       end
     ensure
-      FileUtils.rm(logfile)
+      File.exist?(logfile) ? FileUtils.rm(logfile) : nil
     end
   end
 end

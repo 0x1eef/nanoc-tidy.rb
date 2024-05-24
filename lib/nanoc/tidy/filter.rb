@@ -4,6 +4,7 @@ module Nanoc::Tidy
   class Filter < Nanoc::Filter
     require "fileutils"
     require_relative "spawn"
+
     include Spawn
     include FileUtils
 
@@ -67,6 +68,8 @@ module Nanoc::Tidy
         "tidy"
       elsif system("which tidy5 > /dev/null 2>&1")
         "tidy5"
+      else
+        raise Nanoc::Tidy::Error, "tidy executable not found on $PATH"
       end
     end
   end
