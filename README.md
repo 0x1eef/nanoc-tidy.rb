@@ -14,8 +14,9 @@ build process.
 
 __Defaults__
 
-The following example uses the
-[default command line arguments](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method):
+The following example executes tidy with the default settings. <br>
+See [Nanoc::Tidy.default_argv](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method)
+for more details:
 
 ``` ruby
 # Rules
@@ -28,9 +29,10 @@ compile "/index.html.erb" do
 end
 ```
 
-__Options__
+__Option: argv__
 
-The following example forwards a command line argument:
+The following example sets the "argv" filter option. <br>
+The filter option is combined with [Nanoc::Tidy.default_argv](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method):
 
 ```ruby
 # Rules
@@ -43,7 +45,7 @@ compile "/index.html.erb" do
 end
 ```
 
-## <a id='install'>Install</a>
+## Install
 
 **Rubygems.org**
 
@@ -58,6 +60,6 @@ nanoc-tidy.rb can be installed via rubygems.org:
 
 ## License
 
-[BSD Zero Clause](https://choosealicense.com/licenses/0bsd/).
+[BSD Zero Clause](https://choosealicense.com/licenses/0bsd/)
 <br>
-See [LICENSE](./LICENSE).
+See [LICENSE](./LICENSE)
