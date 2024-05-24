@@ -13,20 +13,10 @@ module Nanoc::Tidy
     # @param [Array<String>] argv
     #  An array of command line arguments
     #
-    # @param [String] err
-    #  A path where stderr is redirected to
-    #
-    # @param [String] out
-    #  A path where stdout is redirected to
-    #
     # @return [void]
-    def spawn(exe, argv, err:, out:)
-      id = SecureRandom.hex
-      err = "#{err}+#{id}"
-      out = "#{out}+#{id}"
-      Kernel.spawn(
-        exe, *argv, { STDERR => err, STDOUT => out }
-      )
+    def spawn(exe, argv, workdir: File.join(Dir.getwd, "tmp"))
+      logfile = File.join(workdir, ".#{Process.pid}.tidy")
+      Kernel.spawn(exe, *argv, { STDERR => logfile, STDOUT => logfile })
       Process.wait
       status = $?
       ##
@@ -34,24 +24,18 @@ module Nanoc::Tidy
       #  * 0: no warnings, no errors
       #  * 1: has warnings
       #  * 2: has errors
-      return if [0, 1].include?(status.exitstatus)
-
-      msgs = [err, out].map do
-        FileUtils.touch(_1)
-        [_1.gsub(Dir.getwd, ''), ":", "\n", File.binread(_1)].join
-      end.join("\n")
-      raise Error,
-            "#{File.basename(exe)} exited unsuccessfully " \
-            "(" \
-            "exit code: #{status.exitstatus}, " \
-            "item: #{item.identifier}" \
-            ")" \
-            "\n#{msgs}",
-            []
+      if [0, 1].include?(status.exitstatus)
+        status.exitstatus
+      else
+        raise Error,
+              "#{File.basename(exe)} exited unsuccessfully\n" \
+              "(item: #{item.identifier})\n" \
+              "(exit code: #{status.exitstatus})\n" \
+              "output:\n#{File.binread(logfile)}\n"
+              []
+      end
     ensure
-      [err, out]
-        .select { File.exist?(_1) }
-        .each { FileUtils.rm(_1) }
+      FileUtils.rm(logfile)
     end
   end
 end

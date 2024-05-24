@@ -34,14 +34,12 @@ module Nanoc::Tidy
     # @return [String]
     #  Returns HTML content (modified)
     def run(content, options = {})
-      path = temporary_file(content).path
+      file = temporary_file(File.basename(item.identifier.to_s), content)
       spawn tidy,
-            [*default_argv, *(options[:argv] || []), "-modify", path],
-            err: File.join(tmpdir, "stderr"),
-            out: File.join(tmpdir, "stdout")
-      File.read(path)
+            [*default_argv, *(options[:argv] || []), "-modify", file.path]
+      File.read(file.path)
     ensure
-      rm(path) if File.exist?(path)
+      file&.unlink
     end
 
     private
@@ -50,11 +48,15 @@ module Nanoc::Tidy
       self.class.default_argv
     end
 
-    def temporary_file(content)
-      mkdir_p(tmpdir)
-      file = Tempfile.new(File.basename(item.identifier.to_s), tmpdir)
-      file.write(content)
-      file.tap(&:flush)
+    def temporary_file(basename, content)
+      tempname = [
+        ".nanoc.tidy.#{basename}.#{object_id}",
+        SecureRandom.alphanumeric(3)
+      ]
+      Tempfile.new(tempname).tap do
+        _1.write(content)
+        _1.flush
+      end
     end
 
     def tidy
@@ -63,10 +65,6 @@ module Nanoc::Tidy
       when system("which tidy5 > /dev/null 2>&1") then "tidy5"
       else nil
       end
-    end
-
-    def tmpdir
-      File.join(Dir.getwd, "tmp", "tidy-html5")
     end
   end
 end
