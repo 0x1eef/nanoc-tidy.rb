@@ -21,4 +21,4 @@ jobs:
         ruby-version: ${{ matrix.ruby }}
     - run: sudo apt-get install tidy
     - run: bundle install
-    - run: rake
+    - run: rake ci
