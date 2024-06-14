@@ -3,6 +3,7 @@
 module Nanoc::Tidy
   module Spawn
     require "fileutils"
+    require "test-cmd"
 
     ##
     # Spawns a process
@@ -14,28 +15,24 @@ module Nanoc::Tidy
     #  An array of command line arguments
     #
     # @return [void]
-    def spawn(exe, argv, workdir: File.join(Dir.getwd, "tmp"))
-      logfile = File.join(workdir, ".#{Process.pid}.tidy")
-      Kernel.spawn(exe, *argv, {STDERR => logfile, STDOUT => logfile})
-      Process.wait
-      status = $?
+    def spawn(exe, argv)
+      r = cmd(exe, *argv)
       ##
       # exit codes
       #  * 0: no warnings, no errors
       #  * 1: has warnings
       #  * 2: has errors
-      if [0, 1].include?(status.exitstatus)
-        status.exitstatus
+      if [0, 1].include?(r.exit_status)
+        r.exit_status
       else
         raise Nanoc::Tidy::Error,
               "#{File.basename(exe)} exited unsuccessfully\n" \
               "(item: #{item.identifier})\n" \
-              "(exit code: #{status.exitstatus})\n" \
-              "output:\n#{File.binread(logfile)}\n",
+              "(exit code: #{r.exit_status})\n" \
+              "(stdout:\n#{r.stdout})\n" \
+              "(stderr:\n#{r.stderr})\n",
               []
       end
-    ensure
-      File.exist?(logfile) ? FileUtils.rm(logfile) : nil
     end
   end
 end
