@@ -34,12 +34,13 @@ module Nanoc::Tidy
     # @return [String]
     #  Returns HTML content (modified)
     def run(content, options = {})
+      options = Ryo(options)
       file = temporary_file(
         File.basename(item.identifier.to_s),
         content
       )
-      spawn options[:exe] || "tidy5",
-            [*default_argv, *(options[:argv] || []), "-modify", file.path]
+      spawn options.exe || "tidy5",
+            [*default_argv, *(options.argv || []), "-modify", file.path]
       File.read(file.path)
     ensure
       file ? file.tap(&:unlink).close : nil
