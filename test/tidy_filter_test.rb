@@ -15,6 +15,14 @@ class FilterTest < Test::Unit::TestCase
                  filter_for("fixture.html").run(html, options)
   end
 
+  def test_exe_not_found
+    options = {exe: "/path/not/found", argv: ["-upper", "--tidy-mark", "false"]}
+    assert_raises(
+      Nanoc::Tidy::Error,
+      "The /path/not/found executable was not found"
+    ) { filter_for("fixture.html").run(html, options) }
+  end
+
   private
 
   def filter_for(basename)
