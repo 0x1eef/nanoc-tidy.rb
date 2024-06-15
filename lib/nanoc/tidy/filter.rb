@@ -56,7 +56,7 @@ module Nanoc::Tidy
       tmpdir = File.join(Dir.getwd, "tmp", "tidy")
       name = item.identifier.to_s
       file = Tempfile.new(
-        [ File.basename(name), File.extname(name) ],
+        [File.basename(name), File.extname(name)],
         mkdir_p(tmpdir).last
       )
       file.write(content)

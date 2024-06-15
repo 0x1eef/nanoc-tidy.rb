@@ -34,3 +34,5 @@ Style/TrivialAccessors:
   Enabled: false
 Style/GlobalStdStream:
   Enabled: false
+Style/SafeNavigation:
+  Enabled: false
