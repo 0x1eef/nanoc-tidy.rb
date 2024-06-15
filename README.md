@@ -32,7 +32,8 @@ end
 __Option: argv__
 
 The following example sets the "argv" filter option. <br>
-The filter option is combined with [Nanoc::Tidy.default_argv](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method):
+The filter option is combined with
+[Nanoc::Tidy.default_argv](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method):
 
 ```ruby
 # Rules
@@ -41,6 +42,23 @@ compile "/index.html.erb" do
   layout("/default.*")
   filter(:erb)
   filter(:tidy, argv: ["-upper"])
+  write("/index.html")
+end
+```
+
+__Option: exe__
+
+The "exe" option can be used to change the default executable
+from "tidy5" to something else, the most common alternative
+might be "tidy":
+
+```ruby
+# Rules
+require "nanoc-tidy"
+compile "/index.html.erb" do
+  layout("/default.*")
+  filter(:erb)
+  filter(:tidy, exe: "tidy")
   write("/index.html")
 end
 ```

@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.licenses = ["0BSD"]
   gem.files = `git ls-files`.split($/).reject { _1.start_with?(".") }
   gem.require_paths = ["lib"]
-  gem.summary = "nanoc + tidy-html5"
+  gem.summary = "nanoc-tidy.rb = nanoc + tidy-html5"
   gem.description = gem.summary
   gem.add_runtime_dependency "test-cmd.rb", "~> 0.12.2"
   gem.add_development_dependency "yard", "~> 0.9"

@@ -14,7 +14,8 @@ module Nanoc::Tidy
     # @param [Array<String>] argv
     #  An array of command line arguments
     #
-    # @return [void]
+    # @return [Integer]
+    #  Returns the exit code of the spawned process
     def spawn(exe, argv)
       r = cmd(exe, *argv)
       ##
@@ -29,8 +30,8 @@ module Nanoc::Tidy
               "#{File.basename(exe)} exited unsuccessfully\n" \
               "(item: #{item.identifier})\n" \
               "(exit code: #{r.exit_status})\n" \
-              "(stdout:\n#{r.stdout})\n" \
-              "(stderr:\n#{r.stderr})\n",
+              "(stdout: #{r.stdout&.chomp})\n" \
+              "(stderr: #{r.stderr&.chomp})\n",
               []
       end
     end

@@ -4,7 +4,6 @@ module Nanoc::Tidy
   class Filter < Nanoc::Filter
     require "fileutils"
     require_relative "spawn"
-
     include Spawn
     include FileUtils
 
@@ -39,11 +38,11 @@ module Nanoc::Tidy
         File.basename(item.identifier.to_s),
         content
       )
-      spawn tidy,
+      spawn options[:exe] || "tidy5",
             [*default_argv, *(options[:argv] || []), "-modify", file.path]
       File.read(file.path)
     ensure
-      file&.unlink
+      file ? file.tap(&:unlink).close : nil
     end
 
     private
@@ -53,24 +52,14 @@ module Nanoc::Tidy
     end
 
     def temporary_file(basename, content)
-      tempname = [
-        ".nanoc.tidy.#{basename}.#{object_id}",
-        SecureRandom.alphanumeric(3)
-      ]
-      Tempfile.new(tempname).tap do
-        _1.write(content)
-        _1.flush
-      end
-    end
-
-    def tidy
-      if system("which tidy > /dev/null 2>&1")
-        "tidy"
-      elsif system("which tidy5 > /dev/null 2>&1")
-        "tidy5"
-      else
-        raise Nanoc::Tidy::Error, "tidy executable not found on $PATH"
-      end
+      tmpdir = File.join(Dir.getwd, "tmp", "tidy")
+      name = item.identifier.to_s
+      file = Tempfile.new(
+        [ File.basename(name), File.extname(name) ],
+        mkdir_p(tmpdir).last
+      )
+      file.write(content)
+      file.tap(&:flush)
     end
   end
 end
