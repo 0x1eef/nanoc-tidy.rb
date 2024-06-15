@@ -6,7 +6,6 @@ module Nanoc::Tidy
   # Generic error
   Error = Class.new(RuntimeError)
 
-  require "securerandom"
   require_relative "tidy/version"
   require_relative "tidy/filter"
 
