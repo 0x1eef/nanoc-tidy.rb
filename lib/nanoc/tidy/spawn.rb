@@ -23,13 +23,9 @@ module Nanoc::Tidy
       #  * 0: no warnings, no errors
       #  * 1: has warnings
       #  * 2: has errors
-      if r.exit_status == 1
-        if r.stderr =~ /No such file or directory/
-          raise Nanoc::Tidy::Error, "The #{exe} executable was not found"
-        else
-          r.exit_status
-        end
-      elsif r.exit_status == 0
+      if r.not_found?
+        raise Nanoc::Tidy::Error, "The #{exe} executable was not found"
+      elsif [0, 1].include?(r.exit_status)
         r.exit_status
       else
         raise Nanoc::Tidy::Error,
