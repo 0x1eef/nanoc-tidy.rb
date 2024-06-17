@@ -31,9 +31,11 @@ end
 
 __Option: argv__
 
-The following example sets the "argv" filter option. <br>
-The filter option is combined with
-[Nanoc::Tidy.default_argv](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method):
+The argv option forwards command line arguments directly to
+the tidy-html5 executable.
+[Nanoc::Webpack.default_argv](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method):
+returns the default command line arguments forwarded to
+tidy-html5:
 
 ```ruby
 # Rules
