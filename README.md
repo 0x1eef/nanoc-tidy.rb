@@ -32,8 +32,8 @@ end
 __Option: argv__
 
 The argv option forwards command line arguments directly to
-the tidy-html5 executable.
-[Nanoc::Webpack.default_argv](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method):
+the tidy-html5 executable. <br>
+[Nanoc::Tidy.default_argv](https://0x1eef.github.io/x/nanoc-tidy.rb/Nanoc/Tidy/Filter#default_argv-class_method)
 returns the default command line arguments forwarded to
 tidy-html5:
 
