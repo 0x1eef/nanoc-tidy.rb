@@ -2,9 +2,9 @@
 
 nanoc-tidy.rb is a
 [nanoc](https://nanoc.app)
-filter that integrates
+filter that adds
 [tidy-html5](https://github.com/htacg/tidy-html5)
-into nanoc. <br>
+support to nanoc. <br>
 The filter can format and validate HTML produced
 during the
 [nanoc](https://nanoc.app)
@@ -64,8 +64,6 @@ end
 ```
 
 ## Install
-
-**Rubygems.org**
 
 nanoc-tidy.rb can be installed via rubygems.org:
 
