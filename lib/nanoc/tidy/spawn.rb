@@ -24,7 +24,7 @@ module Nanoc::Tidy
       #  * 1: has warnings
       #  * 2: has errors
       if r.not_found?
-        raise Nanoc::Tidy::Error, "The #{exe} executable was not found"
+        raise Nanoc::Tidy::Error, "The tidy executable was not found"
       elsif [0, 1].include?(r.exit_status)
         r.exit_status
       else
